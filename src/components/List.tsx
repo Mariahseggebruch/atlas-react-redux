@@ -4,9 +4,10 @@ import { DeleteListButton } from "./DeleteListButton";
 import { NewCardForm } from "./NewCardForm";
 import "../../mockup/output.css";
 
-interface ListProps { // Define ListProps interface before using it
+export interface CardData { // Export the CardData interface
+  id: number;
   title: string;
-  cards: CardData[];
+  description: string;
 }
 
 export const List: React.FC<ListProps> = ({ title, cards }) => {
