@@ -1,5 +1,5 @@
 import React from 'react';
-import { XCircleIcon } from '@heroicons/react/24/solid'; // You can use any icon library you prefer
+import { XCircleIcon } from '@heroicons/react/24/solid';
 
 export const DeleteListButton: React.FC = () => {
   return (
