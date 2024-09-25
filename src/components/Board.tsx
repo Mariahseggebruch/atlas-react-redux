@@ -1,5 +1,4 @@
 import { List } from "./List";
-import { NewCardForm } from "./NewCardForm";
 
 
 export function Board() {
@@ -9,7 +8,6 @@ export function Board() {
             <List />
             <List />
             <List />
-            <NewCardForm />
         </div>
       </div>
     );
