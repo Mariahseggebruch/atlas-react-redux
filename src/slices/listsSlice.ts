@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface List {
+export interface ListProps {
   title: string;
   id: string;
 }
 
-interface Card {
+export interface CardProps {
   id: string;
   listId?: string;
   title: string;
@@ -13,22 +13,22 @@ interface Card {
 }
 
 interface ListsState {
-  lists: List[];
-  cards: Record<string, Card>;
+  lists: ListProps[];
+  cards: Record<string, CardProps>;
 }
 
 const initialState: ListsState = {
   lists: [],
-  cards: {} as Record<string, Card>,
+  cards: {} as Record<string, CardProps>,
 };
 
 export const listsSlice = createSlice({
   name: "lists",
   initialState,
   reducers: {
-    addList: (state, action: PayloadAction<{title: string}>) => {
+    addList: (state, action: PayloadAction<{ id: string; title: string}>) => {
       const newList = {
-        id: nanoid(),
+        id: action.payload.id,
         title: action.payload.title,
       }
       state.lists.push(newList);
@@ -53,7 +53,7 @@ export const listsSlice = createSlice({
       delete state.cards[action.payload.id];
     },
 
-    addCard: (state, action: PayloadAction<Card>) => {
+    addCard: (state, action: PayloadAction<CardProps>) => {
       const newCard = action.payload;
       state.cards[newCard.id] = newCard;
     },

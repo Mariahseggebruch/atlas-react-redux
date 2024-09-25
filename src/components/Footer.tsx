@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { AppDispatch } from '../store';
+import { addList, clearBoard} from "../slices/listsSlice"
 
 export const Footer = () => {
+  const [title, setTitle] = useState<string>("");
+
+  const dispatch: AppDispatch = useDispatch();
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    alert('Create List');
-  };
+    if (title.trim()) {
+      const newList = {
+        id: Date.now().toString(),
+        title,
+        cardIds: []
+      }
+    
+      dispatch(addList(newList))
+      setTitle("")
+    }
+    
+    }
 
   const handleClearBoard = () => {
-    alert("Clear Board");
-  };
+    dispatch(clearBoard());
+  }
 
   return (
     <footer className="sticky bottom-0 left-0 flex w-full items-center justify-center space-x-4 border-t-2 border-blue bg-off-white-light p-8">
@@ -16,7 +33,8 @@ export const Footer = () => {
         <input
           type="text"
           placeholder="List title"
-          name="title"
+          name={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="border-0 bg-transparent text-3xl font-semibold text-blue placeholder:text-blue placeholder:opacity-50 focus:outline-none"
         />
         <button

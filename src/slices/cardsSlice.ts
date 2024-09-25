@@ -5,7 +5,6 @@ interface Card {
   title: string;
   description: string;
   listId: string;
-  text: string;
 }
 
 interface CardsSlice {
@@ -21,13 +20,12 @@ export const cardSlice = createSlice({
   initialState,
   reducers: {
     addCard: (
-      state, action: PayloadAction<{ listId: string; title: string; text: string, description: string }>) => {
+      state, action: PayloadAction<{ listId: string; title: string; description: string }>) => {
       const newCard = {
         id: nanoid(),
         listId: action.payload.listId,
         title: action.payload.title,
         description: action.payload.description,
-        text: action.payload.text,
       };
       state.cards[newCard.id] = newCard;
     },

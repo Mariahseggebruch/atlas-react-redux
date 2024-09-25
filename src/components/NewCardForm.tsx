@@ -1,23 +1,37 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store'; 
+import { addCard } from '../slices/listsSlice'; 
 
-export const NewCardForm: React.FC = () => {
+export const NewCardForm: React.FC<{ listId: string }> = ({ listId }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();   
+  const dispatch: AppDispatch = useDispatch();
 
-    console.log('Title:', title);
-    console.log('Description:', description);
-    setTitle('');
-    setDescription('');
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (title.trim() && description.trim()) {
+      const newCard = {
+        id: Date.now().toString(), 
+        title,
+        description,
+        listId,
+      };
+
+      console.log(newCard)
+      dispatch(addCard(newCard)); 
+      setTitle('');
+      setDescription('');
+    }
   };
 
   return (
     <div className="group/new-card m-3 flex h-44 w-full justify-center">
       <form
         onSubmit={handleSubmit}
-        className="hidden min-h-24 w-full flex-col items-start rounded bg-off-white-light px-4 text-blue group-hover/new-card:flex"
+        className="min-h-24 w-full flex-col items-start rounded bg-off-white-light px-4 text-blue group-hover/new-card:flex"
       >
         <input
           className="w-11/12 resize-none overflow-auto rounded-t-3xl border-0 bg-off-white-light px-0 py-6 text-xl font-black text-blue outline-none"
