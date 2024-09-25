@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DeleteCardButton } from '../components/DeleteCardButton'; // Import the DeleteCardButton component
+import { DeleteCardButton } from '../components/DeleteCardButton'; 
 
 export const Card: React.FC = () => {
   const [showDeleteButton, setShowDeleteButton] = useState(false);
