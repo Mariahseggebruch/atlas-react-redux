@@ -5,16 +5,18 @@ import { Card } from "./Card";
 
 export const List = ({ id, title }: ListProps) => {
 
-  // this isn't working yet 
+  const cards = useAppSelector((state) => 
+    Object.values(state.lists.cards).filter((card: CardProps) => card.listId === id)
+  );
 
   return (
     <div className="group/list h-full min-w-96 p-4 ">
       <h3 className="justify-center">{title}</h3>
       <div className="flex flex-col space-y-4 w-full">
-        {/* {cards.map((card: CardProps) => (
+        {cards.map((card: CardProps) => (
           <Card key={card.id} title={card.title} description={card.description} />
-        ))} */}
-        <NewCardForm listId={id}  />
+        ))}
+        <NewCardForm listId={id} />
       </div>
     </div>
   );
